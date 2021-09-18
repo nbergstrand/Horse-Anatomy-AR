@@ -6,6 +6,21 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    #region Singleton
+    private static UIManager _instance;
+    public static UIManager Instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                Debug.Log("Failed to load UIManager");
+            }
+            return _instance;
+        }
+    }
+    #endregion
+
     [SerializeField]
     Animator _horseAnimator;
 
@@ -17,6 +32,11 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     GameObject _boneLabel;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     public void NextState()
     {
@@ -63,6 +83,12 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void AssignModel(Animator animator, GameObject muscleLabel, GameObject boneLabel)
+    {
+        _horseAnimator = animator;
+        _muscleLabel = muscleLabel;
+        _boneLabel = boneLabel;
+    }
 
 
 }
